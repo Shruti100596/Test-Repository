@@ -47,5 +47,5 @@ driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/
 time.sleep(5)
 
 #Close the browser
-#driver.quit()
+driver.quit()
 
