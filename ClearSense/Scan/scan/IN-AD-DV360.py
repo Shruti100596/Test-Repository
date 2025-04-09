@@ -55,7 +55,7 @@ except Exception as e:
     # Fallback to JavaScript click if standard click fails
     element = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[2]/div[2]/ul/li[2]/a/span")
     driver.execute_script("arguments[0].click();", element)
-time.sleep(30)
+time.sleep(5)
 
 
 #driver.set_page_load_timeout(60)  # Set timeout to 120 seconds
@@ -72,7 +72,7 @@ time.sleep(3)
 #Add description
 Description=driver.find_element(By.XPATH, "/html/body/p-dynamicdialog/div/div/div[2]/app-create-scan/div/app-scan-information/form/div[1]/div[2]/textarea")
 Description.send_keys("This scan is regarding IN-AD")
-time.sleep(150)
+time.sleep(10)
 
 #selecting Advertiser
 # Wait for the dropdown to be clickable and click it
