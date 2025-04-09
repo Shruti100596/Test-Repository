@@ -1,19 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
 
-# Define the service pointing to the running ChromeDriver
-service = Service('/Users/shrutikamble/bin/chromedriver')  
-driver = webdriver.Chrome(service=service)
+options = Options()
+service = Service("/usr/local/bin/chromedriver")
 
-# Example: Open a website
+driver = webdriver.Chrome(service=service, options=options)
 driver.get("https://www.google.com")
-time.sleep(3)
 
 #maximize the window
 driver.maximize_window()
@@ -43,23 +41,11 @@ time.sleep(2)
 
 #Login CTA
 driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[4]").click()
-time.sleep(5)
-
-#Click on scan module
-try:
-    # Wait for the element to be clickable
-    element = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[2]/div[2]/ul/li[2]/a/span"))
-    )
-    element.click()
-except Exception as e:
-    # Fallback to JavaScript click if standard click fails
-    element = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[2]/div[2]/ul/li[2]/a/span")
-    driver.execute_script("arguments[0].click();", element)
 time.sleep(10)
 
+
 #Click on Teams
-Teams= driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[3]/div[1]/a/span")
+Teams= driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[2]/div[1]/a/span")
 Teams.click()
 time.sleep(5)
 
@@ -79,24 +65,42 @@ Export=driver.find_element(By.XPATH, "//button[@type='button']//chevrondownicon[
 Export.click()
 time.sleep(5)
 
-#Export PDF
-Export_PDF=driver.find_element(By.XPATH, "//span[normalize-space()='PDF']")
-Export_PDF.click()
-time.sleep(5)
+# Export PDF
+try:
+    Export_PDF = driver.find_element(By.XPATH, "//span[normalize-space()='PDF']")
+    Export_PDF.click()
+    print("Clicked on Export PDF")
+except Exception as e:
+    print("Failed to click on PDF button:", e)
+
+time.sleep(2)  # Just enough delay to let the browser respond
 
 # Get the current window handle (original tab)
 original_tab = driver.current_window_handle
+print("Original tab:", original_tab)
 
-# Wait for the new tab to open and switch to it
-WebDriverWait(driver, 10).until(lambda d: len(driver.window_handles) > 1)
-new_tab = [handle for handle in driver.window_handles if handle != original_tab][0]
-driver.switch_to.window(new_tab)
+try:
+    # Wait for a new tab to open
+    WebDriverWait(driver, 10).until(lambda d: len(d.window_handles) > 1)
+    print("New tab opened")
+    
+    new_tab = [handle for handle in driver.window_handles if handle != original_tab][0]
+    driver.switch_to.window(new_tab)
+    print("Switched to new tab")
 
-#PDF opened tab will get close
-driver.close()
+    # Close the new tab
+    driver.close()
+    print("Closed the PDF tab")
 
-#switch to previous page
-driver.switch_to.window(original_tab)
+    # Switch back to original tab
+    driver.switch_to.window(original_tab)
+    print("Switched back to original tab")
+
+except TimeoutException:
+    print("❌ Timeout: New tab did not open. PDF may have opened in same tab or was downloaded.")
+
+except Exception as e:
+    print("❌ Unexpected error:", e)
 
 #Export file
 Export=driver.find_element(By.XPATH, "//button[@type='button']//chevrondownicon[@class='p-element p-icon-wrapper ng-star-inserted']//*[name()='svg']")

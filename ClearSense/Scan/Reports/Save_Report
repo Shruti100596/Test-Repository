@@ -1,0 +1,103 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import time
+
+options = Options()
+service = Service("/usr/local/bin/chromedriver")
+
+driver = webdriver.Chrome(service=service, options=options)
+driver.get("https://www.google.com")
+time.sleep(3)
+
+#maximize the window
+driver.maximize_window()
+
+#open botman url
+driver.get("https://botman.cleartrust.club/")
+time.sleep(2)
+
+#Add email
+email=driver.find_element(By.XPATH, '//*[@id="txtEmail"]')
+email.send_keys("shrutik2@botman.ninja")
+time.sleep(2)
+
+#Add password
+password=driver.find_element(By.XPATH, '//*[@id="txtPassword"]')
+password.send_keys("Test@123")
+
+#eye icon
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[2]/div/i[2]").click()
+time.sleep(2)
+
+#remember me 
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[3]/p-checkbox/div/div[2]").click()
+time.sleep(2)
+
+#Login CTA
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[4]").click()
+time.sleep(5)
+
+#Click on report Module
+Report = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[1]/div[2]/ul/li[4]/a/span")
+Report.click()
+time.sleep(5)
+
+#Change the date range
+Date_Range_dropdown = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/div[2]/app-executive-dashboard/app-sub-header/nav/div[2]/app-date-selection/div/p-button/button")
+Date_Range_dropdown.click()
+time.sleep(5)
+
+Date_Range = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/div[2]/app-executive-dashboard/app-sub-header/nav/div[2]/app-date-selection/div/p-overlay/div/div/p-listbox/div/div/ul/li[5]/span")
+Date_Range.click()
+time.sleep(5)
+
+#Select Scan 
+Scan_dropdown = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/div[2]/app-reports/div/div[1]/div/div/p-dropdown/div/div[2]")
+Scan_dropdown.click()
+time.sleep(5)
+
+Search_Scan =driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/div[2]/app-reports/div/div[1]/div/div/p-dropdown/div/p-overlay/div/div/div/div[1]/div/input")
+Search_Scan.send_keys("POP trap- CT redirect")
+time.sleep(3)
+
+select_scan = driver.find_element(By.XPATH, "//span[@class='ng-star-inserted'][normalize-space()='POP trap- CT redirect']")
+select_scan.click()
+time.sleep(3)
+
+#Choose a 2nd dimensions
+dimensions_dropdown = driver.find_element(By.XPATH, '//*[@id="pr_id_114-table"]/thead/tr/th[3]/div/p-button/button')
+dimensions_dropdown.click()
+time.sleep(3)
+
+Selct_dimensions = driver.find_element(By.XPATH, "/html/body/div/div/div/p-listbox/div/div/ul/li[1]/span")
+Selct_dimensions.click()
+time.sleep(3)
+
+#Choose 3rd dimensions
+dimensions_dropdown1 = driver.find_element(By.XPATH, '//*[@id="pr_id_114-table"]/thead/tr/th[3]/div/p-button/button')
+dimensions_dropdown1.click()
+time.sleep(3)
+
+Selct_dimensions1 = driver.find_element(By.XPATH, "/html/body/div/div/div/p-listbox/div/div/ul/li[23]/span")
+Selct_dimensions1.click()
+time.sleep(3)
+
+#Save Report
+Save_Report = driver.find_element(By.XPATH, '//*[@id="pr_id_5"]/div[1]/div/div[3]/div/div[1]/div/p-button/button')
+Save_Report.click()
+time.sleep(3)
+
+#Add a report name
+Report_Name = driver.find_element(By.XPATH, "/html/body/div[2]/div/app-report-save/div/div[2]/form/div/input")
+Report_Name.send_keys("POP-Trap 3D Report")
+time.sleep(5)
+
+#click on save
+save = driver.find_element(By.XPATH, "/html/body/div/div/app-report-save/div/div[2]/form/p-button/button")
+save.click()
+time.sleep(5)
+
+#close the browser
+driver.quit()
