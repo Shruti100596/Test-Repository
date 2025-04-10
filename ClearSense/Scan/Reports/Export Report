@@ -60,7 +60,7 @@ time.sleep(5)
 
 Search_Scan =driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/div[2]/app-reports/div/div[1]/div/div/p-dropdown/div/p-overlay/div/div/div/div[1]/div/input")
 Search_Scan.send_keys("POP trap- CT redirect")
-time.sleep(5)
+time.sleep(3)
 
 select_scan = driver.find_element(By.XPATH, "//span[@class='ng-star-inserted'][normalize-space()='POP trap- CT redirect']")
 select_scan.click()
@@ -71,38 +71,31 @@ Apply =  driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/div/
 Apply.click()
 time.sleep(3)
 
-#Add dimensions
-Add = driver.find_element(By.XPATH, "//button[@class='p-ripple p-element p-button-rounded p-button-text p-button p-component p-button-icon-only']")
-Add.click()
-time.sleep(3)
-
 #Choose a 2nd dimensions
-dimensions_dropdown = driver.find_element(By.XPATH, "//span[normalize-space()='SUB_AFFILIATE_ID']")
-time.sleep(3)
-
+dimensions_dropdown = driver.find_element(By.XPATH, "//div[@class='w-full sm-dropdown p-dropdown p-component']//chevrondownicon[@class='p-element p-icon-wrapper ng-star-inserted']//*[name()='svg']")
 dimensions_dropdown.click()
 time.sleep(3)
 
-#Add 3rd dimensions
-Selct_dimensions = driver.find_element(By.XPATH, "//span[@class='pi pi-plus p-button-icon ng-star-inserted']")
+Selct_dimensions = driver.find_element(By.XPATH, "//span[normalize-space()='SUB_AFFILIATE_ID']")
 Selct_dimensions.click()
 time.sleep(3)
 
 #Choose 3rd dimensions
-dimensions_dropdown1 = driver.find_element(By.XPATH, "//span[normalize-space()='Threat Code']")
-time.sleep(3)
-
+dimensions_dropdown1 = driver.find_elemesnt(By.XPATH, "//div[@class='w-full sm-dropdown p-dropdown p-component']//chevrondownicon[@class='p-element p-icon-wrapper ng-star-inserted']//*[name()='svg']")
 dimensions_dropdown1.click()
 time.sleep(3)
 
+Selct_dimensions1 = driver.find_element(By.XPATH, "//span[normalize-space()='Threat Code']")
+Selct_dimensions1.click()
+time.sleep(3)
 
-#Save Report
-Save_Report = driver.find_element(By.XPATH, "//span[normalize-space()='Save Report']")
-Save_Report.click()
+#Export Report
+Export_Report = driver.find_element(By.XPATH, '//*[@id="pr_id_5"]/div[1]/div/div[3]/div/div[1]/div/p-button/button')
+Export_Report.click()
 time.sleep(3)
 
 #Add a report name
-Report_Name = driver.find_element(By.XPATH, "//input[contains(@placeholder,'Enter Report Name')]")
+Report_Name = driver.find_element(By.XPATH, "/html/body/div[2]/div/app-report-save/div/div[2]/form/div/input")
 Report_Name.send_keys("POP-Trap 3D Report")
 time.sleep(5)
 
