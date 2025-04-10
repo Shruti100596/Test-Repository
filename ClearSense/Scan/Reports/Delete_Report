@@ -1,0 +1,74 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import time
+
+options = Options()
+service = Service("/usr/local/bin/chromedriver")
+
+driver = webdriver.Chrome(service=service, options=options)
+driver.get("https://www.google.com")
+time.sleep(3)
+
+#maximize the window
+driver.maximize_window()
+
+#open botman url
+driver.get("https://botman.cleartrust.club/")
+time.sleep(2)
+
+#Add email
+email=driver.find_element(By.XPATH, '//*[@id="txtEmail"]')
+email.send_keys("shrutik2@botman.ninja")
+time.sleep(2)
+
+#Add password
+password=driver.find_element(By.XPATH, '//*[@id="txtPassword"]')
+password.send_keys("Test@123")
+
+#eye icon
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[2]/div/i[2]").click()
+time.sleep(2)
+
+#remember me 
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[3]/p-checkbox/div/div[2]").click()
+time.sleep(2)
+
+#Login CTA
+driver.find_element(By.XPATH, "/html/body/app-root/app-login/div/div/div[1]/div/form/div[4]").click()
+time.sleep(10)
+
+#Click on report Module
+Report = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[1]/div[2]/ul/li[4]/a/span")
+Report.click()
+time.sleep(5)
+
+#Open Report dropdown
+Report_dropdown = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[1]/div[2]/ul/li[4]/button")
+Report_dropdown.click()
+time.sleep(5)
+
+
+#Select the scan that needs to be deleted
+reports = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[1]/div[2]/ul/div[4]/ul/li[2]/a")
+reports.click()
+time.sleep(3)
+
+#click on delete icon
+delete_report = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/div/ul[1]/li[1]/div[2]/ul/div[4]/ul/li[2]/a/p-button/button/span")
+delete_report.click()
+time.sleep(3)
+
+#Yes/No Confirmation
+Yes = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/p-confirmdialog/div/div/div[3]/button[2]")
+Yes.click()
+time.sleep(3)
+
+#No Option
+#No = driver.find_element(By.XPATH, "/html/body/app-root/app-layout/main/aside/app-aside-menu/p-confirmdialog/div/div/div[3]/button[1]")
+#No.click()
+time.sleep(3)
+
+#close the browser
+#driver.quit()
